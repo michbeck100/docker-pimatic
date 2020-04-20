@@ -1,23 +1,15 @@
 ## docker-pimatic
 
-Docker Image for pimatic on intel plattforms.
+Docker Image for pimatic on rasbperry pi 3 and other armv7 plattforms.
 
-for raspberry pi show [here...](https://hub.docker.com/r/treban/pimatic-rpi/)
+for intel show [here...](https://hub.docker.com/r/treban/pimatic/)
 
-[![Build Status](https://travis-ci.org/treban/docker-pimatic.svg?branch=master)](https://travis-ci.org/treban/docker-pimatic)
-[![This image on DockerHub](https://img.shields.io/docker/pulls/treban/pimatic.svg)](https://hub.docker.com/r/treban/pimatic/)
-
+[![Build Status](https://travis-ci.org/treban/docker-pimatic.svg?branch=rpi3)](https://travis-ci.org/treban/docker-pimatic)
+[![This image on DockerHub](https://img.shields.io/docker/pulls/treban/pimatic-rpi.svg)](https://hub.docker.com/r/treban/pimatic-rpi/)
 
 ### Pull the image
 
-docker pull treban/pimatic
-
-### TAGs 
-
-* treban/pimatic:node10 = treban/pimatic:latest = treban/pimatic \
-    pimatic with node10 base image
-* treban/pimatic:node4 \
-    pimatic with node4 base image
+docker pull treban/pimatic-rpi
 
 ### Run the container
 
@@ -26,7 +18,7 @@ docker run \\ \
    --network=host \\ \
    -v /data-path:/data \\ \
    --device=/dev/ttyUSB0 \\ \
-   treban/pimatic
+   treban/pimatic-rpi
 
 You can specify a device for homeduino or some other usb devices.
 
@@ -40,3 +32,6 @@ generates a inital sql database
 
 The pimatic app folder inside the container is /opt/pimatic-docker.
 The default config exposes port 8282 and admin/admin as login credentials.
+
+#### Git repo for raspberry
+[here...](https://github.com/treban/docker-pimatic/tree/rpi3)
