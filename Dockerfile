@@ -1,42 +1,28 @@
-##################################################################
-# pimatic docker file
-# VERSION               1.0
-##################################################################
+FROM arm32v7/node:10-buster
 
-# base image
-FROM arm32v7/ubuntu
+LABEL Description="Pimatic docker image for raspberry pi" Maintainer="michaelkotten@gmail.com" Version="1.0"
 
-LABEL Description="Pimatic docker image for rpi3" Maintainer="trebankosta@gmail.com" Version="1.0"
-
-ENV DEBIAN_FRONTEND=noninteractive
-
-####### set default timezone ######
-RUN ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-
-####### install #######
 RUN apt update && apt-get -y upgrade
-RUN apt-get install -y netcat-openbsd git make \
-    build-essential libnss-mdns libavahi-compat-libdnssd-dev samba-common wakeonlan \
-    libusb-dev libudev-dev curl libpcap-dev nodejs npm ca-certificates tzdata jq libpcap0.8-dev
+RUN apt-get install -y git build-essential \
+    libnss-mdns libavahi-compat-libdnssd-dev
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /opt/pimatic-docker
-RUN cd /opt && npm install pimatic --prefix pimatic-docker --production
+RUN mkdir /opt/pimatic
+RUN cd /opt && npm install pimatic --prefix pimatic --production
 
-####### init #######
 RUN mkdir /data/
 COPY ./config.json /data/config.json
 RUN touch /data/pimatic-database.sqlite
 
 ####### volume #######
 VOLUME ["/data"]
-VOLUME ["/opt/pimatic-docker"]
+VOLUME ["/opt/pimatic"]
 
-ENV PIMATIC_DAEMONIZED=pm2-docker
+ENV PIMATIC_DAEMONIZED=true
 
 ####### command #######
-CMD ln -fs /data/config.json /opt/pimatic-docker/config.json && \
-   ln -fs /data/pimatic-database.sqlite /opt/pimatic-docker/pimatic-database.sqlite && \
+CMD ln -fs /data/config.json /opt/pimatic/config.json && \
+   ln -fs /data/pimatic-database.sqlite /opt/pimatic/pimatic-database.sqlite && \
    /etc/init.d/dbus start &&  \
    /etc/init.d/avahi-daemon start && \
-   /usr/bin/nodejs /opt/pimatic-docker/node_modules/pimatic/pimatic.js
+   /usr/bin/nodejs /opt/pimatic/node_modules/pimatic/pimatic.js

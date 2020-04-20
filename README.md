@@ -2,14 +2,12 @@
 
 Docker Image for pimatic on rasbperry pi 3 and other armv7 plattforms.
 
-for intel show [here...](https://hub.docker.com/r/treban/pimatic/)
-
-[![Build Status](https://travis-ci.org/treban/docker-pimatic.svg?branch=rpi3)](https://travis-ci.org/treban/docker-pimatic)
-[![This image on DockerHub](https://img.shields.io/docker/pulls/treban/pimatic-rpi.svg)](https://hub.docker.com/r/treban/pimatic-rpi/)
+[![Build Status](https://travis-ci.org/michbeck100/docker-pimatic.svg?branch=master)](https://travis-ci.org/michbeck100/docker-pimatic)
+[![This image on DockerHub](https://img.shields.io/docker/pulls/michbeck100/pimatic.svg)](https://hub.docker.com/r/michbeck100/pimatic/)
 
 ### Pull the image
 
-docker pull treban/pimatic-rpi
+docker pull michbeck100/pimatic
 
 ### Run the container
 
@@ -18,7 +16,7 @@ docker run \\ \
    --network=host \\ \
    -v /data-path:/data \\ \
    --device=/dev/ttyUSB0 \\ \
-   treban/pimatic-rpi
+   michbeck100/pimatic
 
 You can specify a device for homeduino or some other usb devices.
 
@@ -30,8 +28,5 @@ generates a inital sql database
 - config.json
 - pimatic-database.sqlite
 
-The pimatic app folder inside the container is /opt/pimatic-docker.
+The pimatic app folder inside the container is /opt/pimatic.
 The default config exposes port 8282 and admin/admin as login credentials.
-
-#### Git repo for raspberry
-[here...](https://github.com/treban/docker-pimatic/tree/rpi3)
