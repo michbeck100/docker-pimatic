@@ -8,7 +8,7 @@ RUN apt-get install -y git build-essential \
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /opt/pimatic
-RUN cd /opt && npm install pimatic --prefix pimatic --production
+RUN npm install pimatic --prefix opt/pimatic --production
 
 RUN mkdir /data/
 COPY ./config.json /data/config.json
@@ -25,4 +25,4 @@ CMD ln -fs /data/config.json /opt/pimatic/config.json && \
    ln -fs /data/pimatic-database.sqlite /opt/pimatic/pimatic-database.sqlite && \
    /etc/init.d/dbus start &&  \
    /etc/init.d/avahi-daemon start && \
-   /usr/bin/nodejs /opt/pimatic/node_modules/pimatic/pimatic.js
+   /usr/local/bin/nodejs /opt/pimatic/node_modules/pimatic/pimatic.js
