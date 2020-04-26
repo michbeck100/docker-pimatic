@@ -1,0 +1,10 @@
+version: "3.5"
+services:
+  pimatic:
+    build: .
+    ports:
+      - 80:8282
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - /opt/pimatic:/data
