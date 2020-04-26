@@ -2,6 +2,7 @@ version: 2
 services:
   pimatic:
     image: michbeck100/pimatic
+    restart: always
     ports:
       - 80:80
     devices:
