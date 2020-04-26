@@ -3,7 +3,7 @@ services:
   pimatic:
     image: michbeck100/pimatic
     ports:
-      - 80:8282
+      - 8080:80
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
