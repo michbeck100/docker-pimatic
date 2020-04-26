@@ -8,3 +8,7 @@ services:
       - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
       - /opt/pimatic:/data
+      - pimatic:/opt/pimatic
+    network_mode: host
+volumes:
+  pimatic:
