@@ -4,10 +4,12 @@ services:
     image: michbeck100/pimatic
     restart: always
     ports:
-      - 80:80
+      - 8080:80
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
-      - /opt/pimatic:/opt/pimatic
+      - /opt/pimatic:/data
+      - pimatic:/opt/pimatic
     network_mode: host
-
+volumes:
+  pimatic:
