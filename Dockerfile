@@ -4,7 +4,7 @@ LABEL Description="Pimatic docker image for raspberry pi" Maintainer="michaelkot
 
 RUN apt update && apt-get -y upgrade
 RUN apt-get install -y git build-essential \
-    libnss-mdns libavahi-compat-libdnssd-dev
+    avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /opt/pimatic
