@@ -10,19 +10,15 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN mkdir /opt/pimatic
 RUN npm install pimatic --prefix opt/pimatic --production
 
-RUN mkdir /data/
-COPY ./config.json /data/config.json
-RUN touch /data/pimatic-database.sqlite
+COPY ./config.json /opt/pimatic/config.json
+RUN touch /opt/pimatic/pimatic-database.sqlite
 
 ####### volume #######
-VOLUME ["/data"]
 VOLUME ["/opt/pimatic"]
 
 ENV PIMATIC_DAEMONIZED=true
 
 ####### command #######
-CMD ln -fs /data/config.json /opt/pimatic/config.json && \
-   ln -fs /data/pimatic-database.sqlite /opt/pimatic/pimatic-database.sqlite && \
-   /etc/init.d/dbus start &&  \
+CMD /etc/init.d/dbus start &&  \
    /etc/init.d/avahi-daemon start && \
    /usr/local/bin/nodejs /opt/pimatic/node_modules/pimatic/pimatic.js
