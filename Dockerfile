@@ -7,12 +7,22 @@ RUN apt-get install -y git build-essential \
     avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev
 RUN rm -rf /var/lib/apt/lists/*
 
+####### Install pimatic #######
 RUN mkdir /opt/pimatic
 RUN npm install pimatic --prefix opt/pimatic --production
 
 RUN mkdir /data/
 COPY ./config.json /data/config.json
 RUN touch /data/pimatic-database.sqlite
+RUN mkdir /data/echo-database && mkdir /data/hap-database
+
+####### Configure autostart #######
+RUN cd /opt/pimatic/node_modules/pimatic && npm link
+RUN wget https://raw.githubusercontent.com/pimatic/pimatic/master/install/pimatic.service && \
+    cp pimatic.service /lib/systemd/system/ && \
+    chown root:root /lib/systemd/system/pimatic.service && \
+    systemctl daemon-reload && \
+    systemctl enable pimatic
 
 ####### volume #######
 VOLUME ["/data"]
@@ -23,6 +33,9 @@ ENV PIMATIC_DAEMONIZED=true
 ####### command #######
 CMD ln -fs /data/config.json /opt/pimatic/config.json && \
    ln -fs /data/pimatic-database.sqlite /opt/pimatic/pimatic-database.sqlite && \
-   /etc/init.d/dbus start &&  \
-   /etc/init.d/avahi-daemon start && \
-   /usr/local/bin/nodejs /opt/pimatic/node_modules/pimatic/pimatic.js
+   ln -fs /data/echo-database /opt/pimatic/echo-database && \
+   ln -fs /data/hap-database /opt/pimatic/hap-database && \
+   service dbus start &&  \
+   service avahi-daemon start && \
+   service pimatic start && \
+   bash
