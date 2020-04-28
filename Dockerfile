@@ -18,11 +18,11 @@ RUN mkdir /data/echo-database && mkdir /data/hap-database
 
 ####### Configure autostart #######
 RUN cd /opt/pimatic/node_modules/pimatic && npm link
-RUN wget https://raw.githubusercontent.com/pimatic/pimatic/master/install/pimatic.service && \
-    cp pimatic.service /lib/systemd/system/ && \
-    chown root:root /lib/systemd/system/pimatic.service && \
-    systemctl daemon-reload && \
-    systemctl enable pimatic
+RUN wget https://raw.githubusercontent.com/pimatic/pimatic/master/install/pimatic-init-d && \
+    cp pimatic-init-d /etc/init.d/pimatic && \
+    chmod +x /etc/init.d/pimatic && \
+    chown root:root /etc/init.d/pimatic && \
+    update-rc.d pimatic defaults
 
 ####### volume #######
 VOLUME ["/data"]
