@@ -9,8 +9,4 @@ install:
   - docker run -d -p 127.0.0.1:8080:80 --name pimatic pimatic
 
 script:
-  - docker ps -a
-  - (timeout 90s docker logs pimatic -f ; exit 0)
-  - curl -sSf http://localhost:8080 > /dev/null
-
-#after_success:
+  - docker ps -a | grep pimatic
