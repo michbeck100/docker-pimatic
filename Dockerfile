@@ -10,32 +10,24 @@ RUN rm -rf /var/lib/apt/lists/*
 ####### Install pimatic #######
 RUN mkdir /opt/pimatic
 RUN npm install pimatic --prefix opt/pimatic --production
+RUN cd /opt/pimatic/ && npm install sqlite3
 
 RUN mkdir /data/
 COPY ./config.json /data/config.json
 RUN touch /data/pimatic-database.sqlite
+RUN touch /opt/pimatic/pimatic-daemon.log
 RUN mkdir /data/echo-database && mkdir /data/hap-database
-
-####### Configure autostart #######
-RUN cd /opt/pimatic/node_modules/pimatic && npm link
-RUN wget https://raw.githubusercontent.com/pimatic/pimatic/master/install/pimatic-init-d && \
-    cp pimatic-init-d /etc/init.d/pimatic && \
-    chmod +x /etc/init.d/pimatic && \
-    chown root:root /etc/init.d/pimatic && \
-    update-rc.d pimatic defaults
 
 ####### volume #######
 VOLUME ["/data"]
 VOLUME ["/opt/pimatic"]
-
-ENV PIMATIC_DAEMONIZED=true
 
 ####### command #######
 CMD ln -fs /data/config.json /opt/pimatic/config.json && \
    ln -fs /data/pimatic-database.sqlite /opt/pimatic/pimatic-database.sqlite && \
    ln -fs /data/echo-database /opt/pimatic/echo-database && \
    ln -fs /data/hap-database /opt/pimatic/hap-database && \
-   service dbus start &&  \
-   service avahi-daemon start && \
-   service pimatic start && \
-   bash
+   /etc/init.d/dbus start &&  \
+   /etc/init.d/avahi-daemon start && \
+   /usr/local/bin/nodejs /opt/pimatic/node_modules/pimatic/pimatic.js start && \
+   tail -f /opt/pimatic/pimatic-daemon.log
