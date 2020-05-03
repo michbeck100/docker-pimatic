@@ -2,6 +2,8 @@ FROM arm32v7/node:10-buster
 
 LABEL Description="Pimatic docker image for raspberry pi" Maintainer="michaelkotten@gmail.com" Version="1.0"
 
+ENV TZ Europe/Berlin
+
 RUN apt update && apt-get -y upgrade
 RUN apt-get install -y git build-essential \
     avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev
