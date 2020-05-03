@@ -14,9 +14,6 @@ RUN mkdir /opt/pimatic
 RUN npm install pimatic --prefix opt/pimatic --production
 RUN cd /opt/pimatic/ && npm install sqlite3
 
-# Fix update url
-RUN cd /opt/pimatic/node_modules/pimatic/lib && sed -i 's/plugins?version=#{version}/plugins/g' plugins.coffee
-
 RUN mkdir /data/
 COPY ./config.json /data/config.json
 RUN touch /data/pimatic-database.sqlite
