@@ -27,8 +27,8 @@ VOLUME ["/opt/pimatic"]
 ####### command #######
 CMD ln -fs /data/config.json /opt/pimatic/config.json && \
    ln -fs /data/pimatic-database.sqlite /opt/pimatic/pimatic-database.sqlite && \
-   ln -fs /data/echo-database /opt/pimatic/echo-database && \
-   ln -fs /data/hap-database /opt/pimatic/hap-database && \
+   ln -fs /data/echo-database /opt/pimatic && \
+   ln -fs /data/hap-database /opt/pimatic && \
    /etc/init.d/dbus start &&  \
    /etc/init.d/avahi-daemon start && \
    /usr/local/bin/nodejs /opt/pimatic/node_modules/pimatic/pimatic.js start && \
