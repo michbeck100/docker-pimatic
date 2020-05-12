@@ -4,9 +4,10 @@ LABEL Description="Pimatic docker image for raspberry pi" Maintainer="michaelkot
 
 ENV TZ Europe/Berlin
 
-RUN apt update && apt-get -y upgrade
+RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y git build-essential \
-    avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev
+    avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev \
+    libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 RUN rm -rf /var/lib/apt/lists/*
 
 ####### Install pimatic #######
