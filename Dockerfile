@@ -12,7 +12,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 ####### Install pimatic #######
 RUN mkdir /opt/pimatic
-RUN npm install pimatic --prefix opt/pimatic --production
+RUN npm install pimatic --prefix /opt/pimatic --production
 RUN cd /opt/pimatic/ && npm install sqlite3
 
 RUN mkdir /data/
