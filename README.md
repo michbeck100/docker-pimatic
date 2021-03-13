@@ -14,19 +14,18 @@ docker pull michbeck100/pimatic
 docker run \\ \
    -it \\ \
    --network=host \\ \
-   -v /data-path:/data \\ \
+   -v /data-path:/opt/pimatic \\ \
    --device=/dev/ttyUSB0 \\ \
    michbeck100/pimatic
 
 You can specify a device for homeduino or some other usb devices.
 
-The container needs a mounted volume in /data.
-In this folder must be placed the config.json and the sql database.
+The container exposes a volume in /opt/pimatic.
+Optionally place your config.json and your sqlite database into this folder.
 The image otherwise uses the default pimatic config and 
-generates a inital sql database
+generates an initial database.
 
 - config.json
 - pimatic-database.sqlite
 
-The pimatic app folder inside the container is /opt/pimatic.
-The default config exposes port 8282 and admin/admin as login credentials.
+The default config exposes port 80 and admin/admin as login credentials.

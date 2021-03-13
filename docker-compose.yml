@@ -1,4 +1,4 @@
-version: 2
+version: "2"
 services:
   pimatic:
     image: michbeck100/pimatic
@@ -8,7 +8,6 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
-      - /opt/pimatic:/data
       - pimatic:/opt/pimatic
     network_mode: host
 volumes:
